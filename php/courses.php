@@ -32,12 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $name = $data['name'];
     
     $query = $db->prepare("DELETE FROM courses WHERE name = ?");
-    $success = $query->execute([$name]);
+    $query->execute([$name]);
     
-    if ($success) {
+    if ($query->rowCount() > 0) {
         echo json_encode(['success' => true]);
     } else {
-        echo json_encode(['success' => false, 'message' => 'Failed to delete course']);
+        echo json_encode(['success' => false, 'message' => 'Course not found']);
     }
 }
 ?>
